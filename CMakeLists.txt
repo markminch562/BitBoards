@@ -3,4 +3,4 @@ project(BitBoards)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(BitBoards main.cpp)
+add_executable(BitBoards main.cpp src/BitBoard.cpp src/BitBoard.h)
