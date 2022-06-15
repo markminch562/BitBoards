@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "src/BitBoard.h"
 
 int main() {

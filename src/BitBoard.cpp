@@ -14,15 +14,15 @@ namespace Game {
 
     void addToken(GameBoard &board);
 
-    void printBoard(uint64_t board);
+    void printBoard(const BitBoard board);
 
-    void printBoard(GameBoard &board);
+    void printBoard(const GameBoard &board);
 
-    void printBoard(uint64_t board, uint64_t board2);
+    void printBoard(const BitBoard board, const BitBoard board2);
 
 
 
-    void UserPrompt(GameBoard &board) {
+    inline void UserPrompt(GameBoard &board) {
 
 
         //select the column that you want to use for the game
@@ -32,13 +32,14 @@ namespace Game {
                   << std::endl;
         std::cin >> userInput;
         if (userInput == 'q') {
-            std::cout << "You have Quit and forfit the game so " << (board.move % 2 ? "Player 1" : "Player 2")
+            std::cout << "You have Quit and forfeit the game so " << (board.move % 2 ? "Player 1" : "Player 2")
                       << " Wins by default " << std::endl;
             board.state = Close;
         }
         else if (userInput >= '1' && userInput <= '7') {
             //check if the column that it was put in is full
-            board.moves[board.move] = (int) (userInput - '0') - 1;
+            int variable = (int) (userInput - '0') - 1;
+            board.moves[board.move] = variable;
             //addToken(board);
             board.state = addToken;
         }
@@ -46,10 +47,10 @@ namespace Game {
 
     }
 
-    void addToken(GameBoard &board) {
+    inline void addToken(GameBoard &board) {
         int Column = board.moves[board.move];
         bool winState = false;
-        if (Column > 5) {
+        if (board.height[Column] > 5) {
             //the column is full, so you can not place an ime there
             std::cout << "<------ERROR------>\nThe column that you place that token in is full try a different number"
                       << std::endl;
@@ -92,7 +93,7 @@ namespace Game {
     }
 
 
-    inline void printBoard(uint64_t board) {
+    inline void printBoard(const BitBoard board) {
         std::cout << "THE BIT SET VALUE for this number is " << board << std::endl;
         auto set = std::bitset<64>(board);
         for (int i = 6; i >= 0; i--) {
@@ -105,7 +106,7 @@ namespace Game {
         }
     }
 
-    inline void printBoard(GameBoard &board) {
+    inline void printBoard(const GameBoard &board) {
         std::cout << "This is the current layout of the game board" << std::endl;
         auto dataSet1 = std::bitset<64>(board.Player1);
         auto dataSet2 = std::bitset<64>(board.Player2);
@@ -123,7 +124,7 @@ namespace Game {
         std::cout<<"\t 1\t 2\t 3\t 4\t 5\t 6\t 7"<<std::endl;
     }
 
-    void printBoard(uint64_t board, uint64_t board2) {
+    inline void printBoard(const BitBoard board, const BitBoard board2) {
         std::cout << "THE BIT SET VALUE for this number is " << board << std::endl;
         auto set = std::bitset<64>(board);
         auto set2 = std::bitset<64>(board2);
