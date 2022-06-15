@@ -26,38 +26,37 @@
  *
  * So the first 6 represent column 0 and 7-12 represent column 1
  */
+namespace Game {
 
-struct GameBoard;
-typedef  unsigned long long int BitBoard;
-typedef void(*GameState)(GameBoard&);
 
-struct GameBoard
-{
-    //initilize memory to prevent bad data on construction
-    BitBoard Player1 = 0;
-    BitBoard Player2 = 0;
+    struct GameBoard;
+    typedef unsigned long long int BitBoard;
 
-    // will hold the current height we can place a token at for the player
-    int height[8] = {0};
+    typedef void(*GameState)(GameBoard &);
 
-    //this will hold the state of all previous moves done, so that we can unwind and undo the game from any player and
-    //any state at any point in the game
-    //we will never need more than 42 game states because there can never be more than 42 tokens on the board at a time
-    int move = 1;
-    int moves [42];
 
-    //typedef function pointer about what to be doing based on game states
-    GameState state;
-    //to get RAII Rule of zero there will be no constructor, destructor or copy constructor
-    //we will let the C++ compiler to auto construct it for us
-};
+    struct GameBoard {
+        //initilize memory to prevent bad data on construction
+        BitBoard Player1 = 0;
+        BitBoard Player2 = 0;
 
-bool checkIfWon(BitBoard board);
-void UserPrompt(GameBoard& board);
+        // will hold the current height we can place a token at for the player
+        int height[6] = {0};
 
-void printBoard(uint64_t board);
-void printBoard(GameBoard& board);
-void printBoard(uint64_t board, uint64_t board2);
+        //this will hold the state of all previous moves done, so that we can unwind and undo the game from any player and
+        //any state at any point in the game
+        //we will never need more than 42 game states because there can never be more than 42 tokens on the board at a time
+        int move = 0;
+        int moves[42];
 
+
+        //typedef function pointer about what to be doing based on game states
+        GameState state;
+
+    };
+
+    void Run(GameBoard &board);
+    void Close(GameBoard &board);
+}
 
 #endif //BITBOARDS_BITBOARD_H
