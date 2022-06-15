@@ -30,8 +30,7 @@ namespace Game {
 
 
     struct GameBoard;
-    typedef unsigned long long int BitBoard;
-
+    typedef unsigned long long BitBoard;
     typedef void(*GameState)(GameBoard &);
 
     #define MAX_MOVES  42
@@ -46,9 +45,9 @@ namespace Game {
         //this will hold the state of all previous moves done, so that we can unwind and undo the game from any player and
         //any state at any point in the game
         //we will never need more than 42 game states because there can never be more than 42 tokens on the board at a time
-        uint8_t move = 0;
+        int move = 0;
 
-        uint8_t moves[MAX_MOVES];
+        int moves[MAX_MOVES];
 
 
         //typedef function pointer about what to be doing based on game states

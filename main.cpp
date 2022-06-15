@@ -1,6 +1,17 @@
 #include <iostream>
 #include "src/BitBoard.h"
-
+inline void printBoards(const Game::BitBoard board) {
+    std::cout << "THE BIT SET VALUE for this number is " << board << std::endl;
+    auto set = std::bitset<64>(board);
+    for (int i = 6; i >= 0; i--) {
+        int startVal = i - 7;
+        for (int j = 0; j < 9; j++) {
+            startVal += 7;
+            std::cout << i + j * 7 << ": " << set[i + j * 7] << "\t";
+        }
+        std::cout << std::endl;
+    }
+}
 int main() {
 
     //improvement that I would like to see made to this code problem
@@ -11,6 +22,7 @@ int main() {
 
 
     Game::GameBoard game;
+
     Game::Run(game);
     //std::cout<<sizeof(game)<<std::endl;
 

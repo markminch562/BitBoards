@@ -58,11 +58,14 @@ namespace Game {
         else {
             //add token to the board
             BitBoard player;
+            int move = board.move;
             board.move % 2 ? player = board.Player2 : player = board.Player1;
-            player |= 1 << (board.height[Column] + Column * 7);
 
+            int bitFlip = (board.height[Column] + Column * 7);
+            player |= 1L << bitFlip;
+            //printBoard(player);
             //set the values
-            board.move % 2 ? board.Player2 = player : board.Player1 = player;
+            move % 2 ? board.Player2 = player : board.Player1 = player;
             board.move++;
             board.height[Column]++;
             printBoard(board);
@@ -71,7 +74,8 @@ namespace Game {
 
         }
         if (winState) {
-            std::cout << "Congratulation " << (board.move % 2 ? "Player 1 " : "Player 2 ")
+            int move = board.move;
+            std::cout << "Congratulation " << (move % 2 ? "Player 1 " : "Player 2 ")
                       << " Has won, please brag about it to everyone because your better than them!!!!!";
             board.state = Close;
         }
